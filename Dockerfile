@@ -2,10 +2,9 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Usar wget (que SÍ está disponible) en lugar de curl
+# Descargar yt-dlp usando wget (no verificamos versión porque falta python3 en build time)
 RUN wget -O /usr/local/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
-    && chmod a+rx /usr/local/bin/yt-dlp \
-    && /usr/local/bin/yt-dlp --version
+    && chmod a+rx /usr/local/bin/yt-dlp
 
 USER node
 
