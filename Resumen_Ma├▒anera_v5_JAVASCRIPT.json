@@ -1,5 +1,5 @@
 {
-  "name": "Resumen Ma\u00f1anera del Pueblo - v5 JavaScript",
+  "name": "Resumen Mañanera del Pueblo - v5 JavaScript",
   "nodes": [
     {
       "parameters": {
@@ -20,7 +20,7 @@
         240,
         300
       ],
-      "notes": "\u23f0 Ejecuta L-V a las 9:00 AM hora M\u00e9xico (15:00 UTC)"
+      "notes": "⏰ Ejecuta L-V a las 9:00 AM hora México (15:00 UTC)"
     },
     {
       "parameters": {},
@@ -32,7 +32,7 @@
         240,
         480
       ],
-      "notes": "\ud83d\udd27 Para b\u00fasquedas HIST\u00d3RICAS con fecha espec\u00edfica"
+      "notes": "🔧 Para búsquedas HISTÓRICAS con fecha específica"
     },
     {
       "parameters": {
@@ -56,11 +56,11 @@
         420,
         480
       ],
-      "notes": "\u26a0\ufe0f CAMBIAR FECHA AQU\u00cd para b\u00fasqueda hist\u00f3rica: yyyy-MM-dd"
+      "notes": "⚠️ CAMBIAR FECHA AQUÍ para búsqueda histórica: yyyy-MM-dd"
     },
     {
       "parameters": {
-        "jsCode": "// ======================================================\n// L\u00d3GICA DIFERENCIADA: MANUAL vs AUTOM\u00c1TICO\n// ======================================================\n\nconst inputData = $input.first().json;\nlet fechaBusqueda;\nlet isManual = false;\nlet searchStart, searchEnd;\n\n// Determinar si es ejecuci\u00f3n manual o autom\u00e1tica\nif (inputData.fecha_parametro) {\n  // ============================================\n  // MODO MANUAL (HIST\u00d3RICO)\n  // ============================================\n  isManual = true;\n  fechaBusqueda = inputData.fecha_parametro;\n  \n  // Para b\u00fasqueda hist\u00f3rica: TODO EL D\u00cdA (00:00 a 23:59 UTC)\n  searchStart = `${fechaBusqueda}T00:00:00Z`;\n  searchEnd = `${fechaBusqueda}T23:59:59Z`;\n  \n  console.log('\ud83d\udd0d MODO MANUAL - B\u00fasqueda hist\u00f3rica');\n  console.log(`   Fecha: ${fechaBusqueda}`);\n  console.log(`   Rango: TODO EL D\u00cdA (00:00-23:59 UTC)`);\n  \n} else {\n  // ============================================\n  // MODO AUTOM\u00c1TICO (SCHEDULE)\n  // ============================================\n  isManual = false;\n  \n  // Usar fecha actual de M\u00e9xico\n  const now = new Date();\n  const year = now.getFullYear();\n  const month = String(now.getMonth() + 1).padStart(2, '0');\n  const day = String(now.getDate()).padStart(2, '0');\n  fechaBusqueda = `${year}-${month}-${day}`;\n  \n  // Para ejecuci\u00f3n autom\u00e1tica a las 9:00 AM M\u00e9xico:\n  // Buscar videos publicados desde las 5:00 AM hasta las 9:00 AM M\u00e9xico\n  // M\u00e9xico (UTC-6): \n  //   5:00 AM M\u00e9xico = 11:00 UTC\n  //   9:00 AM M\u00e9xico = 15:00 UTC\n  searchStart = `${fechaBusqueda}T11:00:00Z`;  // 5 AM M\u00e9xico\n  searchEnd = `${fechaBusqueda}T15:00:00Z`;    // 9 AM M\u00e9xico\n  \n  console.log('\u23f0 MODO AUTOM\u00c1TICO - Esperando fin de transmisi\u00f3n');\n  console.log(`   Fecha: ${fechaBusqueda}`);\n  console.log(`   Rango: 5:00-9:00 AM M\u00e9xico (11:00-15:00 UTC)`);\n  console.log(`   La ma\u00f1anera termina ~9:00 AM, buscamos video ya publicado`);\n}\n\nreturn [{\n  json: {\n    fecha_busqueda: fechaBusqueda,\n    channel_id: 'UCvzHrtf9by1-UY67SfZse8w',\n    search_start: searchStart,\n    search_end: searchEnd,\n    is_manual: isManual,\n    modo: isManual ? 'HIST\u00d3RICO' : 'AUTOM\u00c1TICO'\n  }\n}];"
+        "jsCode": "// ======================================================\n// LÓGICA DIFERENCIADA: MANUAL vs AUTOMÁTICO\n// ======================================================\n\nconst inputData = $input.first().json;\nlet fechaBusqueda;\nlet isManual = false;\nlet searchStart, searchEnd;\n\n// Determinar si es ejecución manual o automática\nif (inputData.fecha_parametro) {\n  // ============================================\n  // MODO MANUAL (HISTÓRICO)\n  // ============================================\n  isManual = true;\n  fechaBusqueda = inputData.fecha_parametro;\n  \n  // Para búsqueda histórica: TODO EL DÍA (00:00 a 23:59 UTC)\n  searchStart = `${fechaBusqueda}T00:00:00Z`;\n  searchEnd = `${fechaBusqueda}T23:59:59Z`;\n  \n  console.log('🔍 MODO MANUAL - Búsqueda histórica');\n  console.log(`   Fecha: ${fechaBusqueda}`);\n  console.log(`   Rango: TODO EL DÍA (00:00-23:59 UTC)`);\n  \n} else {\n  // ============================================\n  // MODO AUTOMÁTICO (SCHEDULE)\n  // ============================================\n  isManual = false;\n  \n  // Usar fecha actual de México\n  const now = new Date();\n  const year = now.getFullYear();\n  const month = String(now.getMonth() + 1).padStart(2, '0');\n  const day = String(now.getDate()).padStart(2, '0');\n  fechaBusqueda = `${year}-${month}-${day}`;\n  \n  // Para ejecución automática a las 9:00 AM México:\n  // Buscar videos publicados desde las 5:00 AM hasta las 9:00 AM México\n  // México (UTC-6): \n  //   5:00 AM México = 11:00 UTC\n  //   9:00 AM México = 15:00 UTC\n  searchStart = `${fechaBusqueda}T11:00:00Z`;  // 5 AM México\n  searchEnd = `${fechaBusqueda}T15:00:00Z`;    // 9 AM México\n  \n  console.log('⏰ MODO AUTOMÁTICO - Esperando fin de transmisión');\n  console.log(`   Fecha: ${fechaBusqueda}`);\n  console.log(`   Rango: 5:00-9:00 AM México (11:00-15:00 UTC)`);\n  console.log(`   La mañanera termina ~9:00 AM, buscamos video ya publicado`);\n}\n\nreturn [{\n  json: {\n    fecha_busqueda: fechaBusqueda,\n    channel_id: 'UCvzHrtf9by1-UY67SfZse8w',\n    search_start: searchStart,\n    search_end: searchEnd,\n    is_manual: isManual,\n    modo: isManual ? 'HISTÓRICO' : 'AUTOMÁTICO'\n  }\n}];"
       },
       "id": "merge_config",
       "name": "Merge Configuration",
@@ -70,11 +70,11 @@
         600,
         380
       ],
-      "notes": "\u2705 L\u00d3GICA CORREGIDA: Manual=TODO EL D\u00cdA, Auto=5-9AM"
+      "notes": "✅ LÓGICA CORREGIDA: Manual=TODO EL DÍA, Auto=5-9AM"
     },
     {
       "parameters": {
-        "url": "=https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={{ $json.channel_id }}&publishedAfter={{ $json.search_start }}&publishedBefore={{ $json.search_end }}&maxResults=10&order=date&type=video&q=ma\u00f1anera+conferencia&key={{ $env.YOUTUBE_API_KEY }}",
+        "url": "=https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={{ $json.channel_id }}&publishedAfter={{ $json.search_start }}&publishedBefore={{ $json.search_end }}&maxResults=10&order=date&type=video&q=mañanera+conferencia&key={{ $env.YOUTUBE_API_KEY }}",
         "options": {
           "response": {
             "response": {
@@ -91,21 +91,21 @@
         800,
         380
       ],
-      "notes": "\ud83d\udcf9 Busca videos en el rango de tiempo especificado"
+      "notes": "📹 Busca videos en el rango de tiempo especificado"
     },
     {
       "parameters": {
-        "jsCode": "// ======================================================\n// FILTRAR Y SELECCIONAR VIDEO DE LA MA\u00d1ANERA\n// ======================================================\n\nconst items = $input.all();\nconst response = items[0].json;\nconst config = $('Merge Configuration').first().json;\n\nconsole.log('\\n========================================');\nconsole.log(`MODO: ${config.modo}`);\nconsole.log(`FECHA: ${config.fecha_busqueda}`);\nconsole.log(`RANGO: ${config.search_start} \u2192 ${config.search_end}`);\nconsole.log('========================================\\n');\n\n// Verificar si hay error en la respuesta\nif (response.error) {\n  console.error('\u274c Error de YouTube API:', response.error.message);\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: `Error de YouTube API: ${response.error.message}`,\n      debug_response: response\n    } \n  }];\n}\n\n// Verificar si hay items\nif (!response.items || response.items.length === 0) {\n  console.warn('\u26a0\ufe0f No se encontraron videos en el rango especificado');\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: `No se encontraron videos en el rango de tiempo (${config.modo})`,\n      debug_info: {\n        modo: config.modo,\n        fecha: config.fecha_busqueda,\n        search_start: config.search_start,\n        search_end: config.search_end\n      }\n    } \n  }];\n}\n\nconst videos = response.items;\nconsole.log(`\u2713 Encontrados ${videos.length} videos`);\n\n// Mostrar todos los videos encontrados para debug\nvideos.forEach((v, i) => {\n  console.log(`  ${i+1}. ${v.snippet.title}`);\n  console.log(`     Publicado: ${v.snippet.publishedAt}`);\n});\n\n// Palabras clave para identificar la ma\u00f1anera\nconst keywords = [\n  'ma\u00f1anera', \n  'conferencia', \n  'presidente', \n  'presidenta', \n  'matutina', \n  'gobierno',\n  'palacio nacional'\n];\n\n// Buscar video que contenga palabras clave\nlet mananera = videos.find(v => {\n  const title = (v.snippet.title || '').toLowerCase();\n  const description = (v.snippet.description || '').toLowerCase();\n  const hasKeyword = keywords.some(keyword => \n    title.includes(keyword) || description.includes(keyword)\n  );\n  \n  if (hasKeyword) {\n    console.log(`\\n\u2713 VIDEO IDENTIFICADO CON KEYWORDS:`);\n    console.log(`  T\u00edtulo: ${v.snippet.title}`);\n    console.log(`  Publicado: ${v.snippet.publishedAt}`);\n  }\n  \n  return hasKeyword;\n});\n\n// Si no encuentra con keywords, tomar el video m\u00e1s largo\n// (la ma\u00f1anera suele ser el video m\u00e1s largo del d\u00eda)\nif (!mananera && videos.length > 0) {\n  console.log('\\n\u26a0\ufe0f No se encontr\u00f3 con keywords');\n  console.log('   Tomando primer video (probablemente la ma\u00f1anera)');\n  mananera = videos[0];\n}\n\n// Verificaci\u00f3n final\nif (!mananera) {\n  console.error('\u274c No se pudo identificar la ma\u00f1anera');\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: 'No se pudo identificar la ma\u00f1anera entre los videos encontrados',\n      videos_found: videos.length\n    } \n  }];\n}\n\n// Verificar que tenga videoId\nif (!mananera.id || !mananera.id.videoId) {\n  console.error('\u274c Video sin videoId v\u00e1lido');\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: 'El video encontrado no tiene videoId v\u00e1lido',\n      debug_video: mananera\n    } \n  }];\n}\n\nconst videoId = mananera.id.videoId;\nconst videoUrl = `https://www.youtube.com/watch?v=${videoId}`;\n\nconsole.log('\\n\u2705 VIDEO SELECCIONADO:');\nconsole.log(`   T\u00edtulo: ${mananera.snippet.title}`);\nconsole.log(`   Video ID: ${videoId}`);\nconsole.log(`   URL: ${videoUrl}`);\nconsole.log(`   Publicado: ${mananera.snippet.publishedAt}`);\nconsole.log('========================================\\n');\n\nreturn [{\n  json: {\n    video_id: videoId,\n    title: mananera.snippet.title,\n    description: mananera.snippet.description || '',\n    published_at: mananera.snippet.publishedAt,\n    thumbnail: mananera.snippet.thumbnails?.high?.url || \n               mananera.snippet.thumbnails?.default?.url || '',\n    channel_title: mananera.snippet.channelTitle,\n    video_url: videoUrl,\n    modo_busqueda: config.modo,\n    error: false\n  }\n}];"
+        "jsCode": "// ======================================================\n// FILTRAR Y SELECCIONAR VIDEO DE LA MAÑANERA\n// ======================================================\n\nconst items = $input.all();\nconst response = items[0].json;\nconst config = $('Merge Configuration').first().json;\n\nconsole.log('\\n========================================');\nconsole.log(`MODO: ${config.modo}`);\nconsole.log(`FECHA: ${config.fecha_busqueda}`);\nconsole.log(`RANGO: ${config.search_start} → ${config.search_end}`);\nconsole.log('========================================\\n');\n\n// Verificar si hay error en la respuesta\nif (response.error) {\n  console.error('❌ Error de YouTube API:', response.error.message);\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: `Error de YouTube API: ${response.error.message}`,\n      debug_response: response\n    } \n  }];\n}\n\n// Verificar si hay items\nif (!response.items || response.items.length === 0) {\n  console.warn('⚠️ No se encontraron videos en el rango especificado');\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: `No se encontraron videos en el rango de tiempo (${config.modo})`,\n      debug_info: {\n        modo: config.modo,\n        fecha: config.fecha_busqueda,\n        search_start: config.search_start,\n        search_end: config.search_end\n      }\n    } \n  }];\n}\n\nconst videos = response.items;\nconsole.log(`✓ Encontrados ${videos.length} videos`);\n\n// Mostrar todos los videos encontrados para debug\nvideos.forEach((v, i) => {\n  console.log(`  ${i+1}. ${v.snippet.title}`);\n  console.log(`     Publicado: ${v.snippet.publishedAt}`);\n});\n\n// Palabras clave para identificar la mañanera\nconst keywords = [\n  'mañanera', \n  'conferencia', \n  'presidente', \n  'presidenta', \n  'matutina', \n  'gobierno',\n  'palacio nacional'\n];\n\n// Buscar video que contenga palabras clave\nlet mananera = videos.find(v => {\n  const title = (v.snippet.title || '').toLowerCase();\n  const description = (v.snippet.description || '').toLowerCase();\n  const hasKeyword = keywords.some(keyword => \n    title.includes(keyword) || description.includes(keyword)\n  );\n  \n  if (hasKeyword) {\n    console.log(`\\n✓ VIDEO IDENTIFICADO CON KEYWORDS:`);\n    console.log(`  Título: ${v.snippet.title}`);\n    console.log(`  Publicado: ${v.snippet.publishedAt}`);\n  }\n  \n  return hasKeyword;\n});\n\n// Si no encuentra con keywords, tomar el video más largo\n// (la mañanera suele ser el video más largo del día)\nif (!mananera && videos.length > 0) {\n  console.log('\\n⚠️ No se encontró con keywords');\n  console.log('   Tomando primer video (probablemente la mañanera)');\n  mananera = videos[0];\n}\n\n// Verificación final\nif (!mananera) {\n  console.error('❌ No se pudo identificar la mañanera');\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: 'No se pudo identificar la mañanera entre los videos encontrados',\n      videos_found: videos.length\n    } \n  }];\n}\n\n// Verificar que tenga videoId\nif (!mananera.id || !mananera.id.videoId) {\n  console.error('❌ Video sin videoId válido');\n  return [{ \n    json: { \n      video_id: null, \n      error: true, \n      message: 'El video encontrado no tiene videoId válido',\n      debug_video: mananera\n    } \n  }];\n}\n\nconst videoId = mananera.id.videoId;\nconst videoUrl = `https://www.youtube.com/watch?v=${videoId}`;\n\nconsole.log('\\n✅ VIDEO SELECCIONADO:');\nconsole.log(`   Título: ${mananera.snippet.title}`);\nconsole.log(`   Video ID: ${videoId}`);\nconsole.log(`   URL: ${videoUrl}`);\nconsole.log(`   Publicado: ${mananera.snippet.publishedAt}`);\nconsole.log('========================================\\n');\n\nreturn [{\n  json: {\n    video_id: videoId,\n    title: mananera.snippet.title,\n    description: mananera.snippet.description || '',\n    published_at: mananera.snippet.publishedAt,\n    thumbnail: mananera.snippet.thumbnails?.high?.url || \n               mananera.snippet.thumbnails?.default?.url || '',\n    channel_title: mananera.snippet.channelTitle,\n    video_url: videoUrl,\n    modo_busqueda: config.modo,\n    error: false\n  }\n}];"
       },
       "id": "filter_video",
-      "name": "Filter Ma\u00f1anera Video",
+      "name": "Filter Mañanera Video",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         1000,
         380
       ],
-      "notes": "\ud83d\udd0d Identifica el video de la ma\u00f1anera con logs detallados"
+      "notes": "🔍 Identifica el video de la mañanera con logs detallados"
     },
     {
       "parameters": {
@@ -150,7 +150,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const transcriptionData = $input.first().json;\nconst videoData = $('Save Transcript ID').first().json;\n\nconst fullText = transcriptionData.text || '';\nconst utterances = transcriptionData.utterances || [];\n\nlet formattedTranscription = '=== TRANSCRIPCI\u00d3N MA\u00d1ANERA DEL PUEBLO ===\\n\\n';\n\nif (utterances.length > 0) {\n  console.log(`\\n\u2705 TRANSCRIPCI\u00d3N COMPLETADA:`);\n  console.log(`   Speakers identificados: ${utterances.length} utterances`);\n  utterances.forEach((utterance, index) => {\n    const speaker = utterance.speaker || 'Speaker';\n    const text = utterance.text || '';\n    formattedTranscription += `[${speaker}]: ${text}\\n\\n`;\n  });\n} else {\n  console.log(`\\n\u2705 TRANSCRIPCI\u00d3N COMPLETADA (sin speakers):`);\n  formattedTranscription += fullText;\n}\n\nconst confidence = (transcriptionData.confidence * 100).toFixed(1);\nconst words = transcriptionData.words?.length || 0;\nconst duration = Math.floor((transcriptionData.audio_duration || 0) / 60);\n\nconsole.log(`   Caracteres: ${fullText.length}`);\nconsole.log(`   Palabras: ${words}`);\nconsole.log(`   Duraci\u00f3n: ${duration} minutos`);\nconsole.log(`   Confianza: ${confidence}%`);\n\nreturn [{\n  json: {\n    ...videoData,\n    transcription: formattedTranscription,\n    transcription_raw: fullText,\n    transcription_confidence: transcriptionData.confidence || 0,\n    transcription_words: words,\n    transcription_duration: transcriptionData.audio_duration || 0,\n    utterances_count: utterances.length,\n    processing_completed: true\n  }\n}];"
+        "jsCode": "const transcriptionData = $input.first().json;\nconst videoData = $('Save Transcript ID').first().json;\n\nconst fullText = transcriptionData.text || '';\nconst utterances = transcriptionData.utterances || [];\n\nlet formattedTranscription = '=== TRANSCRIPCIÓN MAÑANERA DEL PUEBLO ===\\n\\n';\n\nif (utterances.length > 0) {\n  console.log(`\\n✅ TRANSCRIPCIÓN COMPLETADA:`);\n  console.log(`   Speakers identificados: ${utterances.length} utterances`);\n  utterances.forEach((utterance, index) => {\n    const speaker = utterance.speaker || 'Speaker';\n    const text = utterance.text || '';\n    formattedTranscription += `[${speaker}]: ${text}\\n\\n`;\n  });\n} else {\n  console.log(`\\n✅ TRANSCRIPCIÓN COMPLETADA (sin speakers):`);\n  formattedTranscription += fullText;\n}\n\nconst confidence = (transcriptionData.confidence * 100).toFixed(1);\nconst words = transcriptionData.words?.length || 0;\nconst duration = Math.floor((transcriptionData.audio_duration || 0) / 60);\n\nconsole.log(`   Caracteres: ${fullText.length}`);\nconsole.log(`   Palabras: ${words}`);\nconsole.log(`   Duración: ${duration} minutos`);\nconsole.log(`   Confianza: ${confidence}%`);\n\nreturn [{\n  json: {\n    ...videoData,\n    transcription: formattedTranscription,\n    transcription_raw: fullText,\n    transcription_confidence: transcriptionData.confidence || 0,\n    transcription_words: words,\n    transcription_duration: transcriptionData.audio_duration || 0,\n    utterances_count: utterances.length,\n    processing_completed: true\n  }\n}];"
       },
       "id": "process_transcription",
       "name": "Process Transcription",
@@ -160,7 +160,7 @@
         2400,
         180
       ],
-      "notes": "\ud83d\udcc4 Procesa y formatea transcripci\u00f3n"
+      "notes": "📄 Procesa y formatea transcripción"
     },
     {
       "parameters": {
@@ -179,7 +179,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [{\n      \"text\": \"Eres un analista pol\u00edtico experto especializado en la pol\u00edtica mexicana. Tu tarea es analizar la siguiente transcripci\u00f3n de la Ma\u00f1anera del Pueblo de M\u00e9xico y generar un reporte estructurado profesional.\\n\\nREQUISITOS ESTRICTOS DEL FORMATO:\\n\\n1. ENCABEZADO:\\nREPORTE MA\u00d1ANERA DEL PUEBLO\\n\\n2. SECCI\u00d3N PARTICIPARON:\\n- Identifica TODOS los participantes que hablan en la transcripci\u00f3n\\n- Formato: Nombre Completo - Cargo completo con siglas entre par\u00e9ntesis\\n- Ejemplo: Edgar Amador - Secretario de Hacienda y Cr\u00e9dito P\u00fablico (SHCP)\\n- Un participante por l\u00ednea, sin vi\u00f1etas\\n- Deja l\u00ednea en blanco despu\u00e9s de esta secci\u00f3n\\n\\n3. SECCI\u00d3N TEMAS:\\n- Agrupa la informaci\u00f3n en temas coherentes\\n- Cada tema debe iniciar con: TEMA: [Nombre descriptivo del tema]\\n- Bajo cada tema, usa vi\u00f1etas (\u2022) para los puntos clave\\n- Cada vi\u00f1eta debe:\\n  * Ser una oraci\u00f3n completa\\n  * Mencionar qui\u00e9n dijo o hizo qu\u00e9\\n  * Incluir datos num\u00e9ricos exactos cuando se mencionen\\n  * Ser objetiva y factual\\n- Mant\u00e9n el orden cronol\u00f3gico de los temas tratados\\n- Deja l\u00ednea en blanco entre temas\\n\\n4. ESTILO:\\n- Lenguaje formal y objetivo\\n- Sin opiniones personales\\n- Sin res\u00famenes finales\\n- Sin introducciones\\n- Sin interpretaciones\\n- Solo hechos y declaraciones textuales\\n\\n5. DATOS NUM\u00c9RICOS:\\n- SIEMPRE incluye cifras exactas mencionadas\\n- Usa el formato original (billones, millones, mdp, %, PIB, etc.)\\n- No redondees n\u00fameros\\n\\nEJEMPLO DE FORMATO ESPERADO:\\n\\nREPORTE MA\u00d1ANERA DEL PUEBLO\\n\\nPARTICIPARON\\n\\nEdgar Amador - Secretar\u00eda de Hacienda y Cr\u00e9dito P\u00fablico (SHCP)\\nBertha G\u00f3mez - Subsecretar\u00eda de Egresos de HCP (SSE)\\nJorge Mendoza - Banco Nacional de Obras y Servicios (BANOBRAS)\\n\\nTEMA: Plan de Inversi\u00f3n en Infraestructura para el Desarrollo con Bienestar\\n\u2022 Edgar Amador (SHCP), present\u00f3 el Plan de Inversi\u00f3n en Infraestructura para el Desarrollo con Bienestar 2026-2030.\\n\u2022 Explic\u00f3 que el centro de la estrategia es la inversi\u00f3n p\u00fablica para lograr un desarrollo con bienestar: servicios b\u00e1sicos, vivienda y conectividad.\\n\u2022 Expuso que el objetivo es realizar una inversi\u00f3n hist\u00f3rica p\u00fablica y mixta por 5.6 billones de pesos en 8 sectores estrat\u00e9gicos.\\n\\nTEMA: T-MEC\\n\u2022 La Presidenta afirm\u00f3 que el T-MEC se encuentra en un proceso de revisi\u00f3n y no de renegociaci\u00f3n.\\n\\n---\\n\\nFecha del video: {{ $json.published_at }}\\nT\u00edtulo: {{ $json.title }}\\nURL: {{ $json.video_url }}\\nPalabras transcritas: {{ $json.transcription_words }}\\nDuraci\u00f3n: {{ Math.floor($json.transcription_duration / 60) }} minutos\\n\\nTRANSCRIPCI\u00d3N COMPLETA:\\n{{ $json.transcription }}\\n\\n---\\n\\nIMPORTANTE: Genera el reporte siguiendo EXACTAMENTE el formato indicado. No agregues secciones adicionales. No hagas interpretaciones. Solo reporta lo que fue dicho.\"\n    }]\n  }],\n  \"generationConfig\": {\n    \"temperature\": 0.1,\n    \"topK\": 20,\n    \"topP\": 0.9,\n    \"maxOutputTokens\": 8192\n  },\n  \"safetySettings\": [\n    {\"category\": \"HARM_CATEGORY_HARASSMENT\", \"threshold\": \"BLOCK_NONE\"},\n    {\"category\": \"HARM_CATEGORY_HATE_SPEECH\", \"threshold\": \"BLOCK_NONE\"},\n    {\"category\": \"HARM_CATEGORY_SEXUALLY_EXPLICIT\", \"threshold\": \"BLOCK_NONE\"},\n    {\"category\": \"HARM_CATEGORY_DANGEROUS_CONTENT\", \"threshold\": \"BLOCK_NONE\"}\n  ]\n}",
+        "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [{\n      \"text\": \"Eres un analista político experto especializado en la política mexicana. Tu tarea es analizar la siguiente transcripción de la Mañanera del Pueblo de México y generar un reporte estructurado profesional.\\n\\nREQUISITOS ESTRICTOS DEL FORMATO:\\n\\n1. ENCABEZADO:\\nREPORTE MAÑANERA DEL PUEBLO\\n\\n2. SECCIÓN PARTICIPARON:\\n- Identifica TODOS los participantes que hablan en la transcripción\\n- Formato: Nombre Completo - Cargo completo con siglas entre paréntesis\\n- Ejemplo: Edgar Amador - Secretario de Hacienda y Crédito Público (SHCP)\\n- Un participante por línea, sin viñetas\\n- Deja línea en blanco después de esta sección\\n\\n3. SECCIÓN TEMAS:\\n- Agrupa la información en temas coherentes\\n- Cada tema debe iniciar con: TEMA: [Nombre descriptivo del tema]\\n- Bajo cada tema, usa viñetas (•) para los puntos clave\\n- Cada viñeta debe:\\n  * Ser una oración completa\\n  * Mencionar quién dijo o hizo qué\\n  * Incluir datos numéricos exactos cuando se mencionen\\n  * Ser objetiva y factual\\n- Mantén el orden cronológico de los temas tratados\\n- Deja línea en blanco entre temas\\n\\n4. ESTILO:\\n- Lenguaje formal y objetivo\\n- Sin opiniones personales\\n- Sin resúmenes finales\\n- Sin introducciones\\n- Sin interpretaciones\\n- Solo hechos y declaraciones textuales\\n\\n5. DATOS NUMÉRICOS:\\n- SIEMPRE incluye cifras exactas mencionadas\\n- Usa el formato original (billones, millones, mdp, %, PIB, etc.)\\n- No redondees números\\n\\nEJEMPLO DE FORMATO ESPERADO:\\n\\nREPORTE MAÑANERA DEL PUEBLO\\n\\nPARTICIPARON\\n\\nEdgar Amador - Secretaría de Hacienda y Crédito Público (SHCP)\\nBertha Gómez - Subsecretaría de Egresos de HCP (SSE)\\nJorge Mendoza - Banco Nacional de Obras y Servicios (BANOBRAS)\\n\\nTEMA: Plan de Inversión en Infraestructura para el Desarrollo con Bienestar\\n• Edgar Amador (SHCP), presentó el Plan de Inversión en Infraestructura para el Desarrollo con Bienestar 2026-2030.\\n• Explicó que el centro de la estrategia es la inversión pública para lograr un desarrollo con bienestar: servicios básicos, vivienda y conectividad.\\n• Expuso que el objetivo es realizar una inversión histórica pública y mixta por 5.6 billones de pesos en 8 sectores estratégicos.\\n\\nTEMA: T-MEC\\n• La Presidenta afirmó que el T-MEC se encuentra en un proceso de revisión y no de renegociación.\\n\\n---\\n\\nFecha del video: {{ $json.published_at }}\\nTítulo: {{ $json.title }}\\nURL: {{ $json.video_url }}\\nPalabras transcritas: {{ $json.transcription_words }}\\nDuración: {{ Math.floor($json.transcription_duration / 60) }} minutos\\n\\nTRANSCRIPCIÓN COMPLETA:\\n{{ $json.transcription }}\\n\\n---\\n\\nIMPORTANTE: Genera el reporte siguiendo EXACTAMENTE el formato indicado. No agregues secciones adicionales. No hagas interpretaciones. Solo reporta lo que fue dicho.\"\n    }]\n  }],\n  \"generationConfig\": {\n    \"temperature\": 0.1,\n    \"topK\": 20,\n    \"topP\": 0.9,\n    \"maxOutputTokens\": 8192\n  },\n  \"safetySettings\": [\n    {\"category\": \"HARM_CATEGORY_HARASSMENT\", \"threshold\": \"BLOCK_NONE\"},\n    {\"category\": \"HARM_CATEGORY_HATE_SPEECH\", \"threshold\": \"BLOCK_NONE\"},\n    {\"category\": \"HARM_CATEGORY_SEXUALLY_EXPLICIT\", \"threshold\": \"BLOCK_NONE\"},\n    {\"category\": \"HARM_CATEGORY_DANGEROUS_CONTENT\", \"threshold\": \"BLOCK_NONE\"}\n  ]\n}",
         "options": {}
       },
       "id": "gemini_summary",
@@ -190,11 +190,11 @@
         2600,
         180
       ],
-      "notes": "\ud83e\udd16 Genera resumen estructurado con IA"
+      "notes": "🤖 Genera resumen estructurado con IA"
     },
     {
       "parameters": {
-        "jsCode": "const geminiResponse = $input.first().json;\nconst videoData = $('Get YouTube Transcript').first().json;\n\nlet resumen = '';\nif (geminiResponse.candidates && geminiResponse.candidates[0]) {\n  resumen = geminiResponse.candidates[0].content.parts[0].text;\n  console.log(`\\n\u2705 RESUMEN GENERADO:`);\n  console.log(`   Caracteres: ${resumen.length}`);\n} else {\n  console.error('\u274c Error al generar resumen');\n  resumen = 'Error al generar resumen con Gemini';\n}\n\nconst participantesMatch = resumen.match(/PARTICIPARON([\\s\\S]*?)(?=\\n\\nTEMA:|$)/i);\nconst participantes = participantesMatch ? participantesMatch[1].trim() : '';\n\nconst temasMatches = resumen.match(/TEMA: ([^\\n]+)/g);\nconst temas = temasMatches ? temasMatches.map(t => t.replace('TEMA: ', '').trim()).join(', ') : '';\n\nconst fecha = new Date(videoData.published_at);\nconst fechaFormateada = fecha.toLocaleDateString('es-MX', {\n  day: '2-digit',\n  month: '2-digit',\n  year: 'numeric'\n});\n\nconst fechaArchivo = fecha.toISOString().slice(0,10).replace(/-/g, '');\n\nif (participantes) {\n  const numParticipantes = participantes.split('\\n').filter(p => p.trim()).length;\n  console.log(`   Participantes: ${numParticipantes}`);\n}\nif (temasMatches) {\n  console.log(`   Temas: ${temasMatches.length}`);\n}\n\nreturn [{\n  json: {\n    video_id: videoData.video_id,\n    video_url: videoData.video_url,\n    titulo: videoData.title,\n    fecha_original: videoData.published_at,\n    fecha_reporte: fechaFormateada,\n    resumen_completo: resumen,\n    participantes: participantes,\n    temas: temas,\n    thumbnail: videoData.thumbnail,\n    duracion_segundos: videoData.transcription_duration,\n    duracion_minutos: Math.floor(videoData.transcription_duration / 60),\n    palabras_transcritas: videoData.transcription_words,\n    confianza_transcripcion: videoData.transcription_confidence,\n    transcripcion_completa: videoData.transcription,\n    modo_busqueda: videoData.modo_busqueda,\n    filename: `Reporte_Mananera_${fechaArchivo}.txt`,\n    generated_at: new Date().toISOString()\n  }\n}];"
+        "jsCode": "const geminiResponse = $input.first().json;\nconst videoData = $('Get YouTube Transcript').first().json;\n\nlet resumen = '';\nif (geminiResponse.candidates && geminiResponse.candidates[0]) {\n  resumen = geminiResponse.candidates[0].content.parts[0].text;\n  console.log(`\\n✅ RESUMEN GENERADO:`);\n  console.log(`   Caracteres: ${resumen.length}`);\n} else {\n  console.error('❌ Error al generar resumen');\n  resumen = 'Error al generar resumen con Gemini';\n}\n\nconst participantesMatch = resumen.match(/PARTICIPARON([\\s\\S]*?)(?=\\n\\nTEMA:|$)/i);\nconst participantes = participantesMatch ? participantesMatch[1].trim() : '';\n\nconst temasMatches = resumen.match(/TEMA: ([^\\n]+)/g);\nconst temas = temasMatches ? temasMatches.map(t => t.replace('TEMA: ', '').trim()).join(', ') : '';\n\nconst fecha = new Date(videoData.published_at);\nconst fechaFormateada = fecha.toLocaleDateString('es-MX', {\n  day: '2-digit',\n  month: '2-digit',\n  year: 'numeric'\n});\n\nconst fechaArchivo = fecha.toISOString().slice(0,10).replace(/-/g, '');\n\nif (participantes) {\n  const numParticipantes = participantes.split('\\n').filter(p => p.trim()).length;\n  console.log(`   Participantes: ${numParticipantes}`);\n}\nif (temasMatches) {\n  console.log(`   Temas: ${temasMatches.length}`);\n}\n\nreturn [{\n  json: {\n    video_id: videoData.video_id,\n    video_url: videoData.video_url,\n    titulo: videoData.title,\n    fecha_original: videoData.published_at,\n    fecha_reporte: fechaFormateada,\n    resumen_completo: resumen,\n    participantes: participantes,\n    temas: temas,\n    thumbnail: videoData.thumbnail,\n    duracion_segundos: videoData.transcription_duration,\n    duracion_minutos: Math.floor(videoData.transcription_duration / 60),\n    palabras_transcritas: videoData.transcription_words,\n    confianza_transcripcion: videoData.transcription_confidence,\n    transcripcion_completa: videoData.transcription,\n    modo_busqueda: videoData.modo_busqueda,\n    filename: `Reporte_Mananera_${fechaArchivo}.txt`,\n    generated_at: new Date().toISOString()\n  }\n}];"
       },
       "id": "prepare_output",
       "name": "Prepare Final Output",
@@ -226,7 +226,7 @@
         3000,
         100
       ],
-      "notes": "\ud83d\udcbe Guarda en Google Drive"
+      "notes": "💾 Guarda en Google Drive"
     },
     {
       "parameters": {
@@ -242,7 +242,7 @@
         3000,
         200
       ],
-      "notes": "\ud83d\udcbe Guarda en base de datos"
+      "notes": "💾 Guarda en base de datos"
     },
     {
       "parameters": {
@@ -265,7 +265,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $env.WHATSAPP_RECIPIENT_NUMBER }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"\ud83d\udccb *REPORTE MA\u00d1ANERA DEL PUEBLO*\\n\\n\ud83d\udcc5 Fecha: {{ $json.fecha_reporte }}\\n\ud83c\udfa5 {{ $json.titulo }}\\n\u23f1\ufe0f Duraci\u00f3n: {{ $json.duracion_minutos }} min\\n\ud83d\udcdd Palabras: {{ $json.palabras_transcritas }}\\n\ud83d\udcca Confianza: {{ Math.round($json.confianza_transcripcion * 100) }}%\\n\ud83d\udd0d Modo: {{ $json.modo_busqueda }}\\n\\n{{ $json.resumen_completo.length > 1000 ? $json.resumen_completo.substring(0, 1000) + '...\\n\\n\ud83d\udcc4 [Resumen completo en Google Drive]' : $json.resumen_completo }}\\n\\n\ud83d\udd17 Video: {{ $json.video_url }}\\n\\n\u2705 Guardado en Drive y DB\"\n  }\n}",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $env.WHATSAPP_RECIPIENT_NUMBER }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"📋 *REPORTE MAÑANERA DEL PUEBLO*\\n\\n📅 Fecha: {{ $json.fecha_reporte }}\\n🎥 {{ $json.titulo }}\\n⏱️ Duración: {{ $json.duracion_minutos }} min\\n📝 Palabras: {{ $json.palabras_transcritas }}\\n📊 Confianza: {{ Math.round($json.confianza_transcripcion * 100) }}%\\n🔍 Modo: {{ $json.modo_busqueda }}\\n\\n{{ $json.resumen_completo.length > 1000 ? $json.resumen_completo.substring(0, 1000) + '...\\n\\n📄 [Resumen completo en Google Drive]' : $json.resumen_completo }}\\n\\n🔗 Video: {{ $json.video_url }}\\n\\n✅ Guardado en Drive y DB\"\n  }\n}",
         "options": {}
       },
       "id": "send_whatsapp",
@@ -276,12 +276,12 @@
         3000,
         300
       ],
-      "notes": "\ud83d\udcf1 Env\u00eda notificaci\u00f3n por WhatsApp"
+      "notes": "📱 Envía notificación por WhatsApp"
     },
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "=\u2705 REPORTE GENERADO EXITOSAMENTE\n\n\ud83d\udccb INFORMACI\u00d3N:\nModo: {{ $json.modo_busqueda }}\nFecha: {{ $json.fecha_reporte }}\nT\u00edtulo: {{ $json.titulo }}\nDuraci\u00f3n: {{ $json.duracion_minutos }} minutos\nPalabras: {{ $json.palabras_transcritas }}\nConfianza: {{ Math.round($json.confianza_transcripcion * 100) }}%\n\n\u2705 Guardado en Google Drive\n\u2705 Registrado en Supabase\n\u2705 Notificaci\u00f3n WhatsApp enviada",
+        "responseBody": "=✅ REPORTE GENERADO EXITOSAMENTE\n\n📋 INFORMACIÓN:\nModo: {{ $json.modo_busqueda }}\nFecha: {{ $json.fecha_reporte }}\nTítulo: {{ $json.titulo }}\nDuración: {{ $json.duracion_minutos }} minutos\nPalabras: {{ $json.palabras_transcritas }}\nConfianza: {{ Math.round($json.confianza_transcripcion * 100) }}%\n\n✅ Guardado en Google Drive\n✅ Registrado en Supabase\n✅ Notificación WhatsApp enviada",
         "options": {}
       },
       "id": "success_response",
@@ -296,7 +296,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "=\u274c NO SE ENCONTR\u00d3 VIDEO\n\nModo: {{ $json.debug_info?.modo || 'Unknown' }}\nFecha: {{ $json.debug_info?.fecha || 'Unknown' }}\nRango b\u00fasqueda: {{ $json.debug_info?.search_start }} \u2192 {{ $json.debug_info?.search_end }}\n\nError: {{ $json.message }}\n\n\ud83d\udca1 SUGERENCIAS:\n- Verifica que la fecha sea correcta\n- Para MANUAL: el video debe existir en esa fecha\n- Para AUTOM\u00c1TICO: ejecutar despu\u00e9s de las 9:00 AM M\u00e9xico\n- Verifica que el video est\u00e9 publicado en el canal",
+        "responseBody": "=❌ NO SE ENCONTRÓ VIDEO\n\nModo: {{ $json.debug_info?.modo || 'Unknown' }}\nFecha: {{ $json.debug_info?.fecha || 'Unknown' }}\nRango búsqueda: {{ $json.debug_info?.search_start }} → {{ $json.debug_info?.search_end }}\n\nError: {{ $json.message }}\n\n💡 SUGERENCIAS:\n- Verifica que la fecha sea correcta\n- Para MANUAL: el video debe existir en esa fecha\n- Para AUTOMÁTICO: ejecutar después de las 9:00 AM México\n- Verifica que el video esté publicado en el canal",
         "options": {
           "responseCode": 404
         }
@@ -312,13 +312,13 @@
     },
     {
       "parameters": {
-        "content": "## \ud83c\udfaf L\u00d3GICA CORRECTA v3\n\n### MODO MANUAL (Hist\u00f3rico)\n- \u2705 Busca en TODO EL D\u00cdA (00:00-23:59 UTC)\n- \u2705 Para encontrar videos ya publicados\n- \u2705 Usar con \"Set Date Parameter\"\n\n### MODO AUTOM\u00c1TICO (Schedule)\n- \u2705 Se ejecuta a las 9:00 AM M\u00e9xico (15:00 UTC)\n- \u2705 Busca videos de 5:00-9:00 AM M\u00e9xico\n- \u2705 Espera a que termine la transmisi\u00f3n\n- \u2705 La ma\u00f1anera termina ~9:00 AM\n- \u2705 El video ya debe estar publicado\n\n### DIFERENCIAS CLAVE:\n```\nMANUAL:\n  search_start: 2026-02-03T00:00:00Z\n  search_end:   2026-02-03T23:59:59Z\n\nAUTOM\u00c1TICO:\n  search_start: 2026-02-03T11:00:00Z (5 AM MX)\n  search_end:   2026-02-03T15:00:00Z (9 AM MX)\n```",
+        "content": "## 🎯 LÓGICA CORRECTA v3\n\n### MODO MANUAL (Histórico)\n- ✅ Busca en TODO EL DÍA (00:00-23:59 UTC)\n- ✅ Para encontrar videos ya publicados\n- ✅ Usar con \"Set Date Parameter\"\n\n### MODO AUTOMÁTICO (Schedule)\n- ✅ Se ejecuta a las 9:00 AM México (15:00 UTC)\n- ✅ Busca videos de 5:00-9:00 AM México\n- ✅ Espera a que termine la transmisión\n- ✅ La mañanera termina ~9:00 AM\n- ✅ El video ya debe estar publicado\n\n### DIFERENCIAS CLAVE:\n```\nMANUAL:\n  search_start: 2026-02-03T00:00:00Z\n  search_end:   2026-02-03T23:59:59Z\n\nAUTOMÁTICO:\n  search_start: 2026-02-03T11:00:00Z (5 AM MX)\n  search_end:   2026-02-03T15:00:00Z (9 AM MX)\n```",
         "height": 557.859204979968,
         "width": 425.6934673366835,
         "color": 3
       },
       "id": "sticky_logic",
-      "name": "Sticky Note - L\u00d3GICA",
+      "name": "Sticky Note - LÓGICA",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -328,7 +328,7 @@
     },
     {
       "parameters": {
-        "content": "## \u2699\ufe0f VARIABLES DE ENTORNO\n\n```bash\n# YouTube API\nYOUTUBE_API_KEY=AIzaSy...\n\n# AssemblyAI\nASSEMBLYAI_API_KEY=...\n\n# Google Gemini\nGEMINI_API_KEY=AIzaSy...\n\n# Google Drive\nGDRIVE_FOLDER_ID=1ABC...\n\n# WhatsApp\nWHATSAPP_PHONE_ID=123...\nWHATSAPP_ACCESS_TOKEN=EAA...\nWHATSAPP_RECIPIENT_NUMBER=521...\n```\n\n## \ud83d\udd50 HORARIOS\n\n**Schedule Trigger:**\n- Cron: `0 15 * * 1-5`\n- Hora: 15:00 UTC = 9:00 AM M\u00e9xico\n- D\u00edas: Lunes a Viernes\n\n**Ma\u00f1anera:**\n- Inicia: ~7:00 AM M\u00e9xico\n- Termina: ~9:00 AM M\u00e9xico\n- Video publicado: ~9:00 AM M\u00e9xico",
+        "content": "## ⚙️ VARIABLES DE ENTORNO\n\n```bash\n# YouTube API\nYOUTUBE_API_KEY=AIzaSy...\n\n# AssemblyAI\nASSEMBLYAI_API_KEY=...\n\n# Google Gemini\nGEMINI_API_KEY=AIzaSy...\n\n# Google Drive\nGDRIVE_FOLDER_ID=1ABC...\n\n# WhatsApp\nWHATSAPP_PHONE_ID=123...\nWHATSAPP_ACCESS_TOKEN=EAA...\nWHATSAPP_RECIPIENT_NUMBER=521...\n```\n\n## 🕐 HORARIOS\n\n**Schedule Trigger:**\n- Cron: `0 15 * * 1-5`\n- Hora: 15:00 UTC = 9:00 AM México\n- Días: Lunes a Viernes\n\n**Mañanera:**\n- Inicia: ~7:00 AM México\n- Termina: ~9:00 AM México\n- Video publicado: ~9:00 AM México",
         "height": 557.859204979968,
         "width": 424.0134228187919,
         "color": 4
@@ -344,7 +344,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// ================================================\n// OBTENER TRANSCRIPCI\u00d3N DE YOUTUBE (Solo JavaScript)\n// ================================================\n\nconst videoData = $input.first().json;\nconst videoId = videoData.video_id;\n\nconsole.log(`\\n\ud83d\udcdd Obteniendo transcripci\u00f3n del video: ${videoId}`);\nconsole.log(`   T\u00edtulo: ${videoData.title}`);\n\n// Funci\u00f3n para obtener transcripci\u00f3n usando la API interna de YouTube\nasync function getYouTubeTranscript(videoId) {\n  const https = require('https');\n  \n  return new Promise((resolve, reject) => {\n    // YouTube almacena los subt\u00edtulos en formato XML\n    // Primero necesitamos obtener la URL de los subt\u00edtulos\n    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;\n    \n    https.get(videoUrl, (res) => {\n      let data = '';\n      \n      res.on('data', (chunk) => {\n        data += chunk;\n      });\n      \n      res.on('end', () => {\n        try {\n          // Buscar la URL de subt\u00edtulos en el HTML\n          const captionMatch = data.match(/\"captionTracks\":\\[{\"baseUrl\":\"([^\"]+)\"/);\n          \n          if (!captionMatch) {\n            reject(new Error('No se encontraron subt\u00edtulos para este video'));\n            return;\n          }\n          \n          let captionUrl = captionMatch[1].replace(/\\\\u0026/g, '&');\n          \n          // Obtener los subt\u00edtulos\n          https.get(captionUrl, (captionRes) => {\n            let captionData = '';\n            \n            captionRes.on('data', (chunk) => {\n              captionData += chunk;\n            });\n            \n            captionRes.on('end', () => {\n              resolve(captionData);\n            });\n          }).on('error', reject);\n          \n        } catch (error) {\n          reject(error);\n        }\n      });\n    }).on('error', reject);\n  });\n}\n\n// Funci\u00f3n para parsear XML de subt\u00edtulos\nfunction parseTranscript(xmlData) {\n  const textRegex = /<text start=\"([^\"]+)\" dur=\"([^\"]+)\"[^>]*>([^<]+)<\\/text>/g;\n  let match;\n  let transcript = [];\n  let fullText = '';\n  \n  while ((match = textRegex.exec(xmlData)) !== null) {\n    const start = parseFloat(match[1]);\n    const duration = parseFloat(match[2]);\n    let text = match[3]\n      .replace(/&amp;/g, '&')\n      .replace(/&lt;/g, '<')\n      .replace(/&gt;/g, '>')\n      .replace(/&quot;/g, '\"')\n      .replace(/&#39;/g, \"'\")\n      .replace(/\\n/g, ' ')\n      .trim();\n    \n    const minutes = Math.floor(start / 60);\n    const seconds = Math.floor(start % 60);\n    const timestamp = `[${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}]`;\n    \n    transcript.push({\n      timestamp,\n      text,\n      start,\n      duration\n    });\n    \n    fullText += text + ' ';\n  }\n  \n  return {\n    entries: transcript,\n    fullText: fullText.trim()\n  };\n}\n\n// Ejecutar\ntry {\n  const xmlData = await getYouTubeTranscript(videoId);\n  const parsed = parseTranscript(xmlData);\n  \n  // Formatear transcripci\u00f3n con timestamps\n  let formattedTranscription = '';\n  parsed.entries.forEach(entry => {\n    formattedTranscription += `${entry.timestamp} ${entry.text}\\n`;\n  });\n  \n  const transcription = `=== TRANSCRIPCI\u00d3N MA\u00d1ANERA DEL PUEBLO ===\\n\\n${formattedTranscription}`;\n  \n  console.log(`\u2705 Transcripci\u00f3n obtenida exitosamente`);\n  console.log(`   Palabras: ${parsed.fullText.split(' ').length}`);\n  console.log(`   Entradas: ${parsed.entries.length}`);\n  \n  return [{\n    json: {\n      ...videoData,\n      transcription: transcription,\n      transcription_raw: parsed.fullText,\n      transcription_words: parsed.fullText.split(' ').length,\n      transcription_confidence: 0.92,\n      transcription_duration: parsed.entries[parsed.entries.length - 1]?.start || 0,\n      utterances_count: parsed.entries.length,\n      processing_completed: true,\n      transcription_method: 'YouTube Captions API'\n    }\n  }];\n  \n} catch (error) {\n  console.error(`\u274c Error: ${error.message}`);\n  \n  return [{\n    json: {\n      ...videoData,\n      error: true,\n      error_message: `Error al obtener transcripci\u00f3n: ${error.message}`,\n      transcription: '',\n      transcription_raw: '',\n      transcription_words: 0\n    }\n  }];\n}\n"
+        "jsCode": "// ================================================\n// OBTENER TRANSCRIPCIÓN DE YOUTUBE (Solo JavaScript)\n// ================================================\n\nconst videoData = $input.first().json;\nconst videoId = videoData.video_id;\n\nconsole.log(`\\n📝 Obteniendo transcripción del video: ${videoId}`);\nconsole.log(`   Título: ${videoData.title}`);\n\n// Función para obtener transcripción usando la API interna de YouTube\nasync function getYouTubeTranscript(videoId) {\n  const https = require('https');\n  \n  return new Promise((resolve, reject) => {\n    // YouTube almacena los subtítulos en formato XML\n    // Primero necesitamos obtener la URL de los subtítulos\n    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;\n    \n    https.get(videoUrl, (res) => {\n      let data = '';\n      \n      res.on('data', (chunk) => {\n        data += chunk;\n      });\n      \n      res.on('end', () => {\n        try {\n          // Buscar la URL de subtítulos en el HTML\n          const captionMatch = data.match(/\"captionTracks\":\\[{\"baseUrl\":\"([^\"]+)\"/);\n          \n          if (!captionMatch) {\n            reject(new Error('No se encontraron subtítulos para este video'));\n            return;\n          }\n          \n          let captionUrl = captionMatch[1].replace(/\\\\u0026/g, '&');\n          \n          // Obtener los subtítulos\n          https.get(captionUrl, (captionRes) => {\n            let captionData = '';\n            \n            captionRes.on('data', (chunk) => {\n              captionData += chunk;\n            });\n            \n            captionRes.on('end', () => {\n              resolve(captionData);\n            });\n          }).on('error', reject);\n          \n        } catch (error) {\n          reject(error);\n        }\n      });\n    }).on('error', reject);\n  });\n}\n\n// Función para parsear XML de subtítulos\nfunction parseTranscript(xmlData) {\n  const textRegex = /<text start=\"([^\"]+)\" dur=\"([^\"]+)\"[^>]*>([^<]+)<\\/text>/g;\n  let match;\n  let transcript = [];\n  let fullText = '';\n  \n  while ((match = textRegex.exec(xmlData)) !== null) {\n    const start = parseFloat(match[1]);\n    const duration = parseFloat(match[2]);\n    let text = match[3]\n      .replace(/&amp;/g, '&')\n      .replace(/&lt;/g, '<')\n      .replace(/&gt;/g, '>')\n      .replace(/&quot;/g, '\"')\n      .replace(/&#39;/g, \"'\")\n      .replace(/\\n/g, ' ')\n      .trim();\n    \n    const minutes = Math.floor(start / 60);\n    const seconds = Math.floor(start % 60);\n    const timestamp = `[${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}]`;\n    \n    transcript.push({\n      timestamp,\n      text,\n      start,\n      duration\n    });\n    \n    fullText += text + ' ';\n  }\n  \n  return {\n    entries: transcript,\n    fullText: fullText.trim()\n  };\n}\n\n// Ejecutar\ntry {\n  const xmlData = await getYouTubeTranscript(videoId);\n  const parsed = parseTranscript(xmlData);\n  \n  // Formatear transcripción con timestamps\n  let formattedTranscription = '';\n  parsed.entries.forEach(entry => {\n    formattedTranscription += `${entry.timestamp} ${entry.text}\\n`;\n  });\n  \n  const transcription = `=== TRANSCRIPCIÓN MAÑANERA DEL PUEBLO ===\\n\\n${formattedTranscription}`;\n  \n  console.log(`✅ Transcripción obtenida exitosamente`);\n  console.log(`   Palabras: ${parsed.fullText.split(' ').length}`);\n  console.log(`   Entradas: ${parsed.entries.length}`);\n  \n  return [{\n    json: {\n      ...videoData,\n      transcription: transcription,\n      transcription_raw: parsed.fullText,\n      transcription_words: parsed.fullText.split(' ').length,\n      transcription_confidence: 0.92,\n      transcription_duration: parsed.entries[parsed.entries.length - 1]?.start || 0,\n      utterances_count: parsed.entries.length,\n      processing_completed: true,\n      transcription_method: 'YouTube Captions API'\n    }\n  }];\n  \n} catch (error) {\n  console.error(`❌ Error: ${error.message}`);\n  \n  return [{\n    json: {\n      ...videoData,\n      error: true,\n      error_message: `Error al obtener transcripción: ${error.message}`,\n      transcription: '',\n      transcription_raw: '',\n      transcription_words: 0\n    }\n  }];\n}\n"
       },
       "id": "get_youtube_transcript",
       "name": "Get YouTube Transcript",
@@ -354,7 +354,44 @@
         1400,
         280
       ],
-      "notes": "\ud83c\udfaf Obtiene transcripci\u00f3n usando JavaScript puro (sin Python)"
+      "notes": "🎯 Obtiene transcripción usando JavaScript puro (sin Python)"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// GENERAR REPORTE HTML A PARTIR DE LA PLANTILLA\n// Requiere variable de entorno: COVER_IMAGE_URL\n// (URL pública o base64 de la imagen de portada)\n// ============================================================\n\nconst d = $input.first().json;\n\n// ── Parsear sección PARTICIPARON ──\nfunction parseParticipantes(text) {\n  const m = text.match(/PARTICIPARON[\\s\\S]*?\\n([\\s\\S]*?)(?=\\n\\nTEMA:)/i);\n  if (!m) return [];\n  return m[1].split('\\n').map(l => l.trim()).filter(l => l.length > 2).map(l => {\n    const idx = l.indexOf(' - ');\n    return idx > -1 ? { nombre: l.slice(0, idx), cargo: l.slice(idx + 3) } : { nombre: l, cargo: '' };\n  });\n}\n\n// ── Parsear secciones TEMA ──\nfunction parseTemas(text) {\n  const rx = /TEMA:\\s*([^\\n]+)\\n([\\s\\S]*?)(?=\\nTEMA:\\s|$)/gi;\n  const temas = []; let m;\n  while ((m = rx.exec(text)) !== null) {\n    const puntos = m[2].split('\\n').map(l => l.trim())\n      .filter(l => l.startsWith('\\u2022') || l.startsWith('-'))\n      .map(l => l.replace(/^[\\u2022\\-]\\s*/, ''));\n    temas.push({ titulo: m[1].trim(), puntos });\n  }\n  return temas;\n}\n\nconst participantes = parseParticipantes(d.resumen_completo || '');\nconst temas = parseTemas(d.resumen_completo || '');\nconst fechaObj = new Date(d.fecha_original || d.generated_at);\nconst dia = fechaObj.toLocaleDateString('es-MX', { day: '2-digit' });\nconst mesAnio = fechaObj.toLocaleDateString('es-MX', { month: 'long', year: 'numeric' });\nconst confianza = Math.round((d.confianza_transcripcion || 0) * 100);\nconst generadoEn = new Date(d.generated_at || new Date())\n  .toLocaleString('es-MX', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });\nconst coverUrl = $env.COVER_IMAGE_URL || '';\n\n// ── HTML participantes ──\nconst participantesHtml = participantes.length > 0\n  ? participantes.map(p =>\n      '<div class=\"participante-item\"><div class=\"participante-bullet\"></div><div>' +\n      '<span class=\"participante-nombre\">' + p.nombre + '</span>' +\n      (p.cargo ? '<span class=\"participante-cargo\"> &ndash; ' + p.cargo + '</span>' : '') +\n      '</div></div>').join('')\n  : (d.participantes || '').split('\\n').filter(l => l.trim()).map(l =>\n      '<div class=\"participante-item\"><div class=\"participante-bullet\"></div><div>' + l.trim() + '</div></div>'\n    ).join('') || '<p style=\"color:#888\">Sin informaci&oacute;n de participantes.</p>';\n\n// ── HTML temas ──\nconst temasHtml = temas.length > 0\n  ? temas.map((t, i) =>\n      '<div class=\"tema-bloque\">' +\n      '<div class=\"tema-titulo\"><span class=\"tema-titulo-num\">' + (i+1) + '</span>' + t.titulo + '</div>' +\n      '<div class=\"tema-contenido\">' +\n      t.puntos.map(p => '<div class=\"tema-punto\"><span class=\"tema-punto-bullet\">&bull;</span><span>' + p + '</span></div>').join('') +\n      '</div></div>').join('')\n  : '<div class=\"resumen-completo\">' + (d.resumen_completo || '').replace(/\\n/g, '<br>') + '</div>';\n\n// ── CSS ──\nconst css = ':root{--verde:#006633;--verde-osc:#004422;--verde-claro:#e8f5e9;--dorado:#C8972B;--gris-claro:#f5f5f5;--gris-borde:#ddd}' +\n  '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}' +\n  'body{font-family:\\'Segoe UI\\',Arial,sans-serif;font-size:14px;color:#444;background:#fff;line-height:1.6}' +\n  '.portada{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;page-break-after:always;overflow:hidden}' +\n  '.portada-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0}' +\n  '.portada::after{content:\\'\\';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,68,34,.85) 75%,rgba(0,68,34,.97) 100%);z-index:1}' +\n  '.portada-info{position:relative;z-index:2;width:100%;padding:48px 56px 56px;color:#fff}' +\n  '.portada-etiqueta{display:inline-block;background:var(--dorado);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:3px;margin-bottom:18px}' +\n  '.portada-titulo{font-size:42px;font-weight:900;line-height:1.15;margin-bottom:12px;text-shadow:0 2px 8px rgba(0,0,0,.4)}' +\n  '.portada-subtitulo{font-size:16px;opacity:.9;max-width:680px;margin-bottom:32px}' +\n  '.portada-meta{display:flex;gap:32px;flex-wrap:wrap;align-items:center;border-top:1px solid rgba(255,255,255,.25);padding-top:24px}' +\n  '.portada-meta-item{display:flex;flex-direction:column;gap:2px}' +\n  '.portada-meta-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;opacity:.65}' +\n  '.portada-meta-valor{font-size:17px;font-weight:700}' +\n  '.portada-link a{color:var(--dorado);text-decoration:none;font-size:13px;font-weight:600;word-break:break-all}' +\n  '.portada-thumbnail{position:absolute;top:24px;right:40px;z-index:2;width:200px;border-radius:8px;border:3px solid rgba(255,255,255,.3);box-shadow:0 4px 20px rgba(0,0,0,.4);overflow:hidden}' +\n  '.portada-thumbnail img{width:100%;display:block}' +\n  '.portada-thumbnail-caption{background:rgba(0,0,0,.6);color:#fff;font-size:10px;text-align:center;padding:4px 6px}' +\n  '.reporte{max-width:900px;margin:0 auto;padding:48px 40px 80px}' +\n  '.reporte-header{display:flex;align-items:center;gap:16px;border-bottom:3px solid var(--verde);padding-bottom:18px;margin-bottom:36px}' +\n  '.reporte-header-logo{width:56px;height:56px;background:var(--verde);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:28px}' +\n  '.reporte-header-texto h1{font-size:22px;font-weight:900;color:var(--verde-osc)}' +\n  '.reporte-header-texto p{font-size:13px;color:#777;margin-top:2px}' +\n  '.reporte-header-fecha{margin-left:auto;text-align:right}' +\n  '.fecha-dia{font-size:40px;font-weight:900;color:var(--verde);line-height:1}' +\n  '.fecha-resto{font-size:13px;color:#777;text-transform:uppercase;letter-spacing:1px}' +\n  '.seccion-participaron{background:var(--verde-claro);border-left:5px solid var(--verde);border-radius:0 8px 8px 0;padding:20px 24px;margin-bottom:40px}' +\n  '.seccion-participaron h2{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--verde-osc);margin-bottom:14px;display:flex;align-items:center;gap:8px}' +\n  '.seccion-participaron h2::before{content:\\'\\';display:inline-block;width:8px;height:8px;background:var(--verde);border-radius:50%}' +\n  '.participante-item{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid rgba(0,102,51,.12)}' +\n  '.participante-item:last-child{border-bottom:none}' +\n  '.participante-bullet{width:6px;height:6px;background:var(--dorado);border-radius:50%;flex-shrink:0;margin-top:5px}' +\n  '.participante-nombre{font-weight:600;color:var(--verde-osc)}' +\n  '.participante-cargo{color:#666;font-size:13px}' +\n  '.tema-bloque{margin-bottom:36px}' +\n  '.tema-titulo{font-size:16px;font-weight:700;color:#fff;background:var(--verde);padding:10px 20px;border-radius:6px 6px 0 0;display:flex;align-items:center;gap:10px}' +\n  '.tema-titulo-num{background:var(--dorado);color:#fff;font-size:11px;font-weight:900;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}' +\n  '.tema-contenido{background:var(--gris-claro);border:1px solid var(--gris-borde);border-top:none;border-radius:0 0 6px 6px;padding:16px 20px}' +\n  '.tema-punto{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px dashed var(--gris-borde);line-height:1.55}' +\n  '.tema-punto:last-child{border-bottom:none}' +\n  '.tema-punto-bullet{color:var(--verde);font-size:18px;line-height:1.2;flex-shrink:0}' +\n  '.resumen-completo{white-space:pre-wrap;font-size:13.5px;line-height:1.7}' +\n  '.reporte-footer{margin-top:60px;border-top:2px solid var(--verde-claro);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:11px;color:#999}' +\n  '.reporte-footer a{color:var(--verde);text-decoration:none}' +\n  '.reporte-footer-badge{background:var(--verde-claro);padding:6px 12px;border-radius:20px;color:var(--verde-osc);font-weight:600;font-size:11px}' +\n  '.reporte-footer-stats{display:flex;gap:20px;flex-wrap:wrap}' +\n  '.stat-item{display:flex;flex-direction:column;align-items:center}' +\n  '.stat-valor{font-weight:700;font-size:16px;color:var(--verde-osc)}' +\n  '.stat-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#999}' +\n  '@media print{.portada{page-break-after:always;min-height:100vh}.portada-thumbnail{display:none}.reporte{padding:32px}}';\n\nconst thumbHtml = d.thumbnail\n  ? '<div class=\"portada-thumbnail\"><img src=\"' + d.thumbnail + '\" alt=\"Miniatura\"><div class=\"portada-thumbnail-caption\">&#9654; Ver en YouTube</div></div>'\n  : '';\n\n// ── Construcción del HTML final ──\nconst html = '<!DOCTYPE html>\\n' +\n  '<html lang=\"es\">\\n<head>\\n' +\n  '<meta charset=\"UTF-8\">\\n' +\n  '<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\\n' +\n  '<title>Ma&ntilde;anera del Pueblo &ndash; ' + (d.fecha_reporte||'') + '</title>\\n' +\n  '<style>' + css + '</style>\\n</head>\\n<body>\\n\\n' +\n  '<div class=\"portada\">\\n' +\n  '  <img class=\"portada-bg\" src=\"' + coverUrl + '\" alt=\"Portada\" onerror=\"this.style.display='none'\">\\n' +\n  '  ' + thumbHtml + '\\n' +\n  '  <div class=\"portada-info\">\\n' +\n  '    <div class=\"portada-etiqueta\">Reporte Oficial</div>\\n' +\n  '    <h1 class=\"portada-titulo\">Ma&ntilde;anera del Pueblo</h1>\\n' +\n  '    <p class=\"portada-subtitulo\">' + (d.titulo||'') + '</p>\\n' +\n  '    <div class=\"portada-meta\">\\n' +\n  '      <div class=\"portada-meta-item\"><span class=\"portada-meta-label\">Fecha</span><span class=\"portada-meta-valor\">' + (d.fecha_reporte||'') + '</span></div>\\n' +\n  '      <div class=\"portada-meta-item\"><span class=\"portada-meta-label\">Duraci&oacute;n</span><span class=\"portada-meta-valor\">' + (d.duracion_minutos||0) + ' min</span></div>\\n' +\n  '      <div class=\"portada-meta-item\"><span class=\"portada-meta-label\">Palabras</span><span class=\"portada-meta-valor\">' + (d.palabras_transcritas||0).toLocaleString('es-MX') + '</span></div>\\n' +\n  '      <div class=\"portada-meta-item portada-link\"><span class=\"portada-meta-label\">Video</span><a href=\"' + (d.video_url||'#') + '\">' + (d.video_url||'') + '</a></div>\\n' +\n  '    </div>\\n  </div>\\n</div>\\n\\n' +\n  '<div class=\"reporte\">\\n' +\n  '  <div class=\"reporte-header\">\\n' +\n  '    <div class=\"reporte-header-logo\">&#x1F985;</div>\\n' +\n  '    <div class=\"reporte-header-texto\"><h1>Ma&ntilde;anera del Pueblo</h1><p>Gobierno de M&eacute;xico &middot; Conferencia de prensa matutina</p></div>\\n' +\n  '    <div class=\"reporte-header-fecha\"><div class=\"fecha-dia\">' + dia + '</div><div class=\"fecha-resto\">' + mesAnio + '</div></div>\\n' +\n  '  </div>\\n\\n' +\n  '  <div class=\"seccion-participaron\"><h2>Participaron</h2>' + participantesHtml + '</div>\\n\\n' +\n  '  ' + temasHtml + '\\n\\n' +\n  '  <div class=\"reporte-footer\">\\n' +\n  '    <div class=\"reporte-footer-stats\">\\n' +\n  '      <div class=\"stat-item\"><span class=\"stat-valor\">' + (d.duracion_minutos||0) + '</span><span class=\"stat-label\">Minutos</span></div>\\n' +\n  '      <div class=\"stat-item\"><span class=\"stat-valor\">' + (d.palabras_transcritas||0).toLocaleString('es-MX') + '</span><span class=\"stat-label\">Palabras</span></div>\\n' +\n  '      <div class=\"stat-item\"><span class=\"stat-valor\">' + confianza + '%</span><span class=\"stat-label\">Confianza IA</span></div>\\n' +\n  '    </div>\\n' +\n  '    <div class=\"reporte-footer-badge\">&#x1F916; Generado con IA &middot; ' + generadoEn + '</div>\\n' +\n  '    <div><a href=\"' + (d.video_url||'#') + '\" target=\"_blank\">&#x1F4FA; Ver video completo</a></div>\\n' +\n  '  </div>\\n</div>\\n\\n</body>\\n</html>';\n\nconst fechaArchivo = (d.fecha_original||new Date().toISOString()).slice(0,10).replace(/-/g,'');\nconsole.log('HTML generado: ' + html.length + ' chars | temas: ' + temas.length + ' | participantes: ' + participantes.length);\n\nreturn [{ json: { ...d, html_reporte: html, filename_html: 'Reporte_Mananera_' + fechaArchivo + '.html' } }];"
+      },
+      "id": "generate_html_report",
+      "name": "Generate HTML Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3000,
+        420
+      ],
+      "notes": "Genera reporte HTML. Configurar COVER_IMAGE_URL en variables de entorno con la URL de la imagen de portada."
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $env.GDRIVE_FOLDER_ID }}",
+          "mode": "id"
+        },
+        "name": "={{ $json.filename_html }}",
+        "options": {
+          "fileContent": "={{ $json.html_reporte }}"
+        }
+      },
+      "id": "save_html_drive",
+      "name": "Save HTML to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        3200,
+        420
+      ],
+      "notes": "Guarda el reporte HTML en Google Drive"
     }
   ],
   "connections": {
@@ -406,14 +443,14 @@
       "main": [
         [
           {
-            "node": "Filter Ma\u00f1anera Video",
+            "node": "Filter Mañanera Video",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Filter Ma\u00f1anera Video": {
+    "Filter Mañanera Video": {
       "main": [
         [
           {
@@ -572,6 +609,11 @@
             "node": "Send WhatsApp Notification",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Generate HTML Report",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -619,6 +661,28 @@
           }
         ]
       ]
+    },
+    "Generate HTML Report": {
+      "main": [
+        [
+          {
+            "node": "Save HTML to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save HTML to Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -630,7 +694,7 @@
   "tags": [
     {
       "id": "1",
-      "name": "producci\u00f3n"
+      "name": "producción"
     },
     {
       "id": "2",

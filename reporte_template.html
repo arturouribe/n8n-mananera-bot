@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Mañanera del Pueblo – {{FECHA}}</title>
+  <style>
+    /* ───────── RESET & BASE ───────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap');
+
+    :root {
+      --verde:      #006633;
+      --verde-osc:  #004422;
+      --verde-claro:#e8f5e9;
+      --morado:     #6A1E8F;
+      --dorado:     #C8972B;
+      --blanco:     #ffffff;
+      --gris-claro: #f5f5f5;
+      --gris-texto: #444444;
+      --gris-borde: #dddddd;
+    }
+
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 14px;
+      color: var(--gris-texto);
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* ───────── PORTADA ───────── */
+    .portada {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      page-break-after: always;
+      overflow: hidden;
+    }
+
+    /* Imagen de fondo (portada proporcionada por el usuario) */
+    .portada-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 0;
+    }
+
+    /* Gradiente sobre la imagen para que el texto sea legible */
+    .portada::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(0, 68, 34, 0.85) 75%,
+        rgba(0, 68, 34, 0.97) 100%
+      );
+      z-index: 1;
+    }
+
+    .portada-info {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 48px 56px 56px;
+      color: var(--blanco);
+    }
+
+    .portada-etiqueta {
+      display: inline-block;
+      background: var(--dorado);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 3px;
+      margin-bottom: 18px;
+    }
+
+    .portada-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .portada-subtitulo {
+      font-size: 16px;
+      font-weight: 400;
+      opacity: 0.9;
+      max-width: 680px;
+      margin-bottom: 32px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .portada-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding-top: 24px;
+    }
+
+    .portada-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .portada-meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+
+    .portada-meta-valor {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .portada-link {
+      margin-top: 8px;
+    }
+    .portada-link a {
+      color: var(--dorado);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .portada-link a:hover { text-decoration: underline; }
+
+    /* Miniatura del video */
+    .portada-thumbnail {
+      position: absolute;
+      top: 24px;
+      right: 40px;
+      z-index: 2;
+      width: 200px;
+      border-radius: 8px;
+      border: 3px solid rgba(255,255,255,0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+    .portada-thumbnail img {
+      width: 100%;
+      display: block;
+    }
+    .portada-thumbnail-caption {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 10px;
+      text-align: center;
+      padding: 4px 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ───────── CONTENIDO DEL REPORTE ───────── */
+    .reporte {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* Encabezado de página (sección interna) */
+    .reporte-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 3px solid var(--verde);
+      padding-bottom: 18px;
+      margin-bottom: 36px;
+    }
+
+    .reporte-header-logo {
+      width: 56px;
+      height: 56px;
+      background: var(--verde);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .reporte-header-logo svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--blanco);
+    }
+
+    .reporte-header-texto h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--verde-osc);
+    }
+
+    .reporte-header-texto p {
+      font-size: 13px;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    .reporte-header-fecha {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .reporte-header-fecha .fecha-dia {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--verde);
+      line-height: 1;
+    }
+
+    .reporte-header-fecha .fecha-resto {
+      font-size: 13px;
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ───────── SECCIÓN: PARTICIPARON ───────── */
+    .seccion-participaron {
+      background: var(--verde-claro);
+      border-left: 5px solid var(--verde);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+    }
+
+    .seccion-participaron h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--verde-osc);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .seccion-participaron h2::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--verde);
+      border-radius: 50%;
+    }
+
+    .participante-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(0,102,51,0.12);
+    }
+
+    .participante-item:last-child { border-bottom: none; }
+
+    .participante-bullet {
+      width: 6px;
+      height: 6px;
+      background: var(--dorado);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .participante-nombre {
+      font-weight: 600;
+      color: var(--verde-osc);
+    }
+
+    .participante-cargo {
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* ───────── SECCIÓN: TEMAS ───────── */
+    .tema-bloque {
+      margin-bottom: 36px;
+    }
+
+    .tema-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--blanco);
+      background: var(--verde);
+      padding: 10px 20px;
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tema-titulo-num {
+      background: var(--dorado);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tema-contenido {
+      background: var(--gris-claro);
+      border: 1px solid var(--gris-borde);
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      padding: 16px 20px;
+    }
+
+    .tema-punto {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px dashed var(--gris-borde);
+      line-height: 1.55;
+    }
+
+    .tema-punto:last-child { border-bottom: none; }
+
+    .tema-punto-bullet {
+      color: var(--verde);
+      font-size: 18px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    /* ───────── RESUMEN COMPLETO (fallback) ───────── */
+    .resumen-completo {
+      white-space: pre-wrap;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--gris-texto);
+    }
+
+    /* ───────── PIE DE PÁGINA ───────── */
+    .reporte-footer {
+      margin-top: 60px;
+      border-top: 2px solid var(--verde-claro);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 11px;
+      color: #999;
+    }
+
+    .reporte-footer a {
+      color: var(--verde);
+      text-decoration: none;
+    }
+
+    .reporte-footer-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--verde-claro);
+      padding: 6px 12px;
+      border-radius: 20px;
+      color: var(--verde-osc);
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .reporte-footer-stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .stat-valor {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--verde-osc);
+    }
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    /* ───────── PRINT / PDF ───────── */
+    @media print {
+      .portada { page-break-after: always; min-height: 100vh; }
+      .portada-thumbnail { display: none; }
+      body { font-size: 12px; }
+      .reporte { padding: 32px 32px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     PORTADA
+     ═══════════════════════════════════════════ -->
+<div class="portada">
+
+  <!-- Imagen de portada (reemplazar src con la imagen real o base64) -->
+  <img class="portada-bg" src="{{COVER_IMAGE_URL}}" alt="Portada Mañanera del Pueblo">
+
+  <!-- Miniatura del video de YouTube (opcional) -->
+  <div class="portada-thumbnail">
+    <img src="{{THUMBNAIL}}" alt="Video de la Mañanera">
+    <div class="portada-thumbnail-caption">▶ Ver en YouTube</div>
+  </div>
+
+  <!-- Bloque de información sobre la imagen de portada -->
+  <div class="portada-info">
+    <div class="portada-etiqueta">Reporte Oficial</div>
+
+    <h1 class="portada-titulo">Mañanera del Pueblo</h1>
+    <p class="portada-subtitulo">{{TITULO}}</p>
+
+    <div class="portada-meta">
+      <div class="portada-meta-item">
+        <span class="portada-meta-label">Fecha</span>
+        <span class="portada-meta-valor">{{FECHA}}</span>
+      </div>
+      <div class="portada-meta-item">
+        <span class="portada-meta-label">Duración</span>
+        <span class="portada-meta-valor">{{DURACION}} min</span>
+      </div>
+      <div class="portada-meta-item">
+        <span class="portada-meta-label">Palabras transcritas</span>
+        <span class="portada-meta-valor">{{PALABRAS}}</span>
+      </div>
+      <div class="portada-meta-item portada-link">
+        <span class="portada-meta-label">Video</span>
+        <a href="{{VIDEO_URL}}" target="_blank">{{VIDEO_URL}}</a>
+      </div>
+    </div>
+  </div>
+</div><!-- /portada -->
+
+
+<!-- ═══════════════════════════════════════════
+     CUERPO DEL REPORTE
+     ═══════════════════════════════════════════ -->
+<div class="reporte">
+
+  <!-- Encabezado interno -->
+  <div class="reporte-header">
+    <div class="reporte-header-logo">
+      <!-- Águila estilizada -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+                 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+      </svg>
+    </div>
+    <div class="reporte-header-texto">
+      <h1>Mañanera del Pueblo</h1>
+      <p>Gobierno de México · Conferencia de prensa matutina</p>
+    </div>
+    <div class="reporte-header-fecha">
+      <div class="fecha-dia">{{FECHA_DIA}}</div>
+      <div class="fecha-resto">{{FECHA_MES_ANIO}}</div>
+    </div>
+  </div>
+
+  <!-- ─── PARTICIPARON ─── -->
+  <div class="seccion-participaron">
+    <h2>Participaron</h2>
+    {{PARTICIPANTES_HTML}}
+  </div>
+
+  <!-- ─── TEMAS ─── -->
+  {{TEMAS_HTML}}
+
+  <!-- ─── ESTADÍSTICAS ─── -->
+  <div class="reporte-footer">
+    <div class="reporte-footer-stats">
+      <div class="stat-item">
+        <span class="stat-valor">{{DURACION}}</span>
+        <span class="stat-label">Minutos</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-valor">{{PALABRAS}}</span>
+        <span class="stat-label">Palabras</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-valor">{{CONFIANZA}}%</span>
+        <span class="stat-label">Confianza</span>
+      </div>
+    </div>
+
+    <div class="reporte-footer-badge">
+      🤖 Generado con IA · {{GENERADO_EN}}
+    </div>
+
+    <div>
+      <a href="{{VIDEO_URL}}" target="_blank">📺 Ver video completo</a>
+    </div>
+  </div>
+
+</div><!-- /reporte -->
+
+</body>
+</html>
